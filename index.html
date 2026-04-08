@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>给Agent装上工具箱 - LangChain Agent Demo</title>
+    <title>Agent ToolBox - 智能工具代理</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,18 +13,16 @@
         <div class="orb orb-3"></div>
     </div>
 
-    <div class="app-container">
+    <div class="container">
         <!-- Header -->
-        <header class="header glass-panel">
-            <div class="header-content">
-                <div class="logo">
-                    <span class="logo-icon">🤖</span>
-                    <h1>Agent 工具箱</h1>
-                </div>
-                <div class="agent-status">
-                    <span class="status-dot"></span>
-                    <span class="status-text">在线</span>
-                </div>
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🛠️</span>
+                <h1>Agent ToolBox</h1>
+            </div>
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span class="status-text">在线</span>
             </div>
         </header>
 
@@ -32,85 +30,115 @@
         <main class="main-content">
             <!-- Tools Panel -->
             <aside class="tools-panel glass-panel">
-                <h2 class="panel-title">🧰 可用工具</h2>
+                <h2 class="panel-title">
+                    <span class="icon">⚡</span>
+                    可用工具
+                </h2>
                 <div class="tools-list" id="toolsList">
-                    <div class="tool-item active" data-tool="calculator">
-                        <span class="tool-icon">🔢</span>
-                        <span class="tool-name">计算器</span>
-                        <span class="tool-badge">基础</span>
-                    </div>
-                    <div class="tool-item active" data-tool="search">
-                        <span class="tool-icon">🔍</span>
-                        <span class="tool-name">搜索引擎</span>
-                        <span class="tool-badge">网络</span>
-                    </div>
-                    <div class="tool-item active" data-tool="weather">
-                        <span class="tool-icon">🌤️</span>
-                        <span class="tool-name">天气查询</span>
-                        <span class="tool-badge">API</span>
-                    </div>
-                    <div class="tool-item active" data-tool="textAnalyzer">
-                        <span class="tool-icon">📝</span>
-                        <span class="tool-name">文本分析</span>
-                        <span class="tool-badge">NLP</span>
-                    </div>
-                    <div class="tool-item active" data-tool="converter">
-                        <span class="tool-icon">🔄</span>
-                        <span class="tool-name">单位转换</span>
-                        <span class="tool-badge">实用</span>
-                    </div>
+                    <!-- Tools will be rendered here -->
                 </div>
-                <div class="tools-stats">
-                    <div class="stat">
-                        <span class="stat-value" id="toolUseCount">0</span>
-                        <span class="stat-label">工具调用次数</span>
+                <div class="agent-status">
+                    <h3>当前状态</h3>
+                    <div class="status-item">
+                        <span class="label">活跃工具:</span>
+                        <span class="value" id="activeTool">无</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">处理中:</span>
+                        <span class="value" id="processingStatus">否</span>
+                    </div>
+                    <div class="status-item">
+                        <span class="label">已执行任务:</span>
+                        <span class="value" id="taskCount">0</span>
                     </div>
                 </div>
             </aside>
 
             <!-- Chat Area -->
-            <section class="chat-area">
-                <div class="chat-messages glass-panel" id="chatMessages">
-                    <div class="welcome-message">
-                        <div class="welcome-icon">🤖</div>
-                        <h3>欢迎使用 Agent 工具箱</h3>
-                        <p>我可以帮助你完成各种任务：</p>
-                        <ul>
-                            <li>📊 <strong>计算</strong> - 数学运算，如 "计算 25 * 4 + 100"</li>
-                            <li>🔍 <strong>搜索</strong> - 信息查询，如 "搜索 Python 教程"</li>
-                            <li>🌤️ <strong>天气</strong> - 天气查询，如 "北京天气怎么样"</li>
-                            <li>📝 <strong>分析</strong> - 文本分析，如 "分析：这产品很棒！"</li>
-                            <li>🔄 <strong>转换</strong> - 单位转换，如 "100美元换人民币"</li>
-                        </ul>
+            <section class="chat-area glass-panel">
+                <div class="chat-header">
+                    <div class="agent-avatar">
+                        <span>🤖</span>
+                    </div>
+                    <div class="agent-info">
+                        <h3>AI Agent</h3>
+                        <p>智能工具代理 · 支持8种工具</p>
+                    </div>
+                </div>
+                
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message message-bot">
+                        <div class="message-avatar">🤖</div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                您好！我是Agent ToolBox，一个智能工具代理。<br><br>
+                                我可以帮您完成以下任务：<br>
+                                • <strong>计算器</strong> - 数学运算<br>
+                                • <strong>搜索</strong> - 信息查询<br>
+                                • <strong>天气</strong> - 天气预报<br>
+                                • <strong>时间</strong> - 当前日期时间<br>
+                                • <strong>文本分析</strong> - 文本处理<br>
+                                • <strong>单位转换</strong> - 长度/重量/温度<br>
+                                • <strong>随机生成</strong> - 随机数据<br>
+                                • <strong>代码执行</strong> - JavaScript代码<br><br>
+                                请输入您的问题或指令！
+                            </div>
+                            <div class="message-time"></div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Tool Call Display -->
-                <div class="tool-call-display glass-panel" id="toolCallDisplay">
-                    <div class="tool-call-header">
-                        <span class="tool-call-icon">⚙️</span>
-                        <span>工具调用过程</span>
-                    </div>
-                    <div class="tool-call-content" id="toolCallContent">
-                        <p class="placeholder">等待 Agent 决策...</p>
-                    </div>
-                </div>
-
-                <!-- Input Area -->
-                <div class="input-area glass-panel">
+                <div class="chat-input-area">
                     <div class="input-wrapper">
-                        <input type="text" id="userInput" placeholder="输入你的问题..." autocomplete="off">
+                        <input 
+                            type="text" 
+                            id="userInput" 
+                            placeholder="输入您的指令... (例如: 计算 25 * 8)"
+                            autocomplete="off"
+                        >
                         <button class="send-btn" id="sendBtn">
                             <span>发送</span>
-                            <span class="send-icon">➤</span>
+                            <span class="icon">➤</span>
                         </button>
                     </div>
-                    <div class="input-hints">
-                        <span class="hint">💡 试试说：计算 2+2 或 搜索天气</span>
+                    <div class="quick-actions">
+                        <button class="quick-btn" data-action="计算 100 + 200">🧮 计算</button>
+                        <button class="quick-btn" data-action="搜索 人工智能最新进展">🔍 搜索</button>
+                        <button class="quick-btn" data-action="北京天气">🌤️ 天气</button>
+                        <button class="quick-btn" data-action="现在几点了">🕐 时间</button>
+                        <button class="quick-btn" data-action="分析文本 Hello World">📝 分析</button>
+                        <button class="quick-btn" data-action="随机数 1-100">🎲 随机</button>
                     </div>
                 </div>
             </section>
+
+            <!-- Tool Details Panel -->
+            <aside class="details-panel glass-panel">
+                <h2 class="panel-title">
+                    <span class="icon">📊</span>
+                    执行详情
+                </h2>
+                <div class="execution-log" id="executionLog">
+                    <div class="log-placeholder">
+                        <span class="icon">📋</span>
+                        <p>执行日志将显示在这里</p>
+                    </div>
+                </div>
+            </aside>
         </main>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loader">
+                <div class="loader-icon">⚙️</div>
+                <div class="loader-text">Agent 思考中...</div>
+                <div class="loader-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="app.js"></script>
