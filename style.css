@@ -1,37 +1,35 @@
-/* === CSS Reset & Base === */
-*, *::before, *::after {
+/* 全局样式 */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 :root {
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glass-shadow: rgba(0, 0, 0, 0.3);
     --primary: #6366f1;
-    --primary-light: #818cf8;
-    --primary-dark: #4f46e5;
-    --secondary: #22d3ee;
-    --accent: #f472b6;
+    --primary-glow: rgba(99, 102, 241, 0.5);
+    --secondary: #8b5cf6;
+    --accent: #22d3ee;
     --success: #10b981;
     --warning: #f59e0b;
     --error: #ef4444;
-    --bg-dark: #0f0f23;
-    --bg-darker: #070714;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --text-primary: #f1f5f9;
+    --text-primary: #f8fafc;
     --text-secondary: #94a3b8;
     --text-muted: #64748b;
 }
 
 body {
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    background: var(--bg-darker);
-    color: var(--text-primary);
+    font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 50%, #16213e 100%);
     min-height: 100vh;
+    color: var(--text-primary);
     overflow-x: hidden;
 }
 
-/* === Background Effects === */
+/* 背景效果 */
 .background-effects {
     position: fixed;
     top: 0;
@@ -42,7 +40,7 @@ body {
     z-index: 0;
 }
 
-.orb {
+.gradient-orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(80px);
@@ -51,40 +49,40 @@ body {
 }
 
 .orb-1 {
-    width: 400px;
-    height: 400px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    top: -100px;
-    right: -100px;
-    animation-delay: 0s;
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    top: -200px;
+    left: -100px;
 }
 
 .orb-2 {
-    width: 300px;
-    height: 300px;
-    background: linear-gradient(135deg, var(--secondary), var(--primary));
-    bottom: -50px;
-    left: -50px;
-    animation-delay: -5s;
+    width: 400px;
+    height: 400px;
+    background: linear-gradient(135deg, var(--accent), var(--primary));
+    bottom: -150px;
+    right: -100px;
+    animation-delay: -7s;
 }
 
 .orb-3 {
-    width: 250px;
-    height: 250px;
-    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, var(--success), var(--accent));
     top: 50%;
     left: 50%;
-    animation-delay: -10s;
+    transform: translate(-50%, -50%);
+    animation-delay: -14s;
 }
 
 @keyframes float {
     0%, 100% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(30px, -30px) scale(1.05); }
-    50% { transform: translate(-20px, 20px) scale(0.95); }
-    75% { transform: translate(20px, 30px) scale(1.02); }
+    25% { transform: translate(50px, -30px) scale(1.1); }
+    50% { transform: translate(-30px, 50px) scale(0.9); }
+    75% { transform: translate(40px, 30px) scale(1.05); }
 }
 
-/* === Container === */
+/* 容器 */
 .container {
     position: relative;
     z-index: 1;
@@ -94,35 +92,23 @@ body {
     min-height: 100vh;
 }
 
-/* === Glass Panel === */
-.glass-panel {
-    background: var(--glass-bg);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-}
-
-/* === Header === */
+/* 头部 */
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 25px;
+    text-align: center;
+    padding: 30px 20px;
     margin-bottom: 20px;
 }
 
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 10px;
 }
 
 .logo-icon {
-    font-size: 32px;
+    font-size: 3rem;
     animation: pulse 2s ease-in-out infinite;
 }
 
@@ -132,222 +118,150 @@ body {
 }
 
 .logo h1 {
-    font-size: 24px;
+    font-size: 2.5rem;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-light), var(--secondary));
+    background: linear-gradient(135deg, var(--primary), var(--accent));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 }
 
-.status-indicator {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    border-radius: 20px;
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
 }
 
-.status-dot {
-    width: 10px;
-    height: 10px;
-    background: var(--success);
-    border-radius: 50%;
-    animation: blink 1.5s ease-in-out infinite;
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-}
-
-.status-text {
-    font-size: 14px;
-    color: var(--success);
-    font-weight: 500;
-}
-
-/* === Main Content === */
+/* 主内容区 */
 .main-content {
     display: grid;
     grid-template-columns: 280px 1fr 300px;
     gap: 20px;
-    height: calc(100vh - 120px);
+    margin-bottom: 20px;
 }
 
-/* === Tools Panel === */
-.tools-panel {
+@media (max-width: 1200px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 玻璃卡片 */
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
     padding: 20px;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    box-shadow: 0 8px 32px var(--glass-shadow);
 }
 
-.panel-title {
+/* 工具面板 */
+.tools-panel h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid var(--glass-border);
 }
 
-.panel-title .icon {
-    font-size: 20px;
+.tools-count {
+    background: var(--primary);
+    color: white;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
 }
 
-.tools-list {
-    flex: 1;
-    overflow-y: auto;
+.tools-grid {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-right: 5px;
-}
-
-.tools-list::-webkit-scrollbar {
-    width: 4px;
-}
-
-.tools-list::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.tools-list::-webkit-scrollbar-thumb {
-    background: var(--glass-border);
-    border-radius: 2px;
 }
 
 .tool-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 15px;
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid transparent;
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 12px;
+    padding: 12px;
     cursor: pointer;
     transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .tool-item:hover {
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(99, 102, 241, 0.2);
     border-color: var(--primary);
     transform: translateX(5px);
 }
 
 .tool-item.active {
-    background: rgba(99, 102, 241, 0.2);
-    border-color: var(--primary);
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.2);
+    background: rgba(99, 102, 241, 0.3);
+    border-color: var(--accent);
 }
 
-.tool-item.active .tool-icon {
-    animation: glow 1.5s ease-in-out infinite;
+.tool-item .tool-icon {
+    font-size: 1.5rem;
 }
 
-@keyframes glow {
-    0%, 100% { filter: drop-shadow(0 0 5px currentColor); }
-    50% { filter: drop-shadow(0 0 15px currentColor); }
-}
-
-.tool-icon {
-    font-size: 24px;
-    transition: all 0.3s ease;
-}
-
-.tool-info {
-    flex: 1;
-}
-
-.tool-name {
-    font-size: 14px;
+.tool-item .tool-name {
     font-weight: 600;
-    margin-bottom: 2px;
+    font-size: 0.95rem;
 }
 
-.tool-desc {
-    font-size: 11px;
+.tool-item .tool-desc {
+    font-size: 0.75rem;
     color: var(--text-muted);
 }
 
-.agent-status {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid var(--glass-border);
-}
-
-.agent-status h3 {
-    font-size: 14px;
-    margin-bottom: 12px;
-    color: var(--text-secondary);
-}
-
-.status-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    font-size: 13px;
-}
-
-.status-item .label {
-    color: var(--text-muted);
-}
-
-.status-item .value {
-    color: var(--secondary);
-    font-weight: 600;
-}
-
-/* === Chat Area === */
-.chat-area {
+/* 聊天面板 */
+.chat-panel {
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    height: 600px;
 }
 
 .chat-header {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 20px 25px;
+    gap: 10px;
+    padding-bottom: 15px;
     border-bottom: 1px solid var(--glass-border);
+    margin-bottom: 15px;
 }
 
-.agent-avatar {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+.chat-icon {
+    font-size: 1.5rem;
 }
 
-.agent-info h3 {
-    font-size: 16px;
-    margin-bottom: 4px;
+.chat-header h3 {
+    flex: 1;
+    font-size: 1.2rem;
 }
 
-.agent-info p {
-    font-size: 12px;
-    color: var(--text-muted);
+.clear-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.clear-btn:hover {
+    background: rgba(239, 68, 68, 0.2);
 }
 
 .chat-messages {
     flex: 1;
     overflow-y: auto;
-    padding: 20px 25px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
 .chat-messages::-webkit-scrollbar {
@@ -363,9 +277,24 @@ body {
     border-radius: 3px;
 }
 
+.welcome-message {
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    line-height: 1.8;
+}
+
+.welcome-message ul {
+    list-style: none;
+    margin-top: 15px;
+}
+
+.welcome-message li {
+    padding: 8px 0;
+}
+
 .message {
-    display: flex;
-    gap: 12px;
     max-width: 85%;
     animation: slideIn 0.3s ease;
 }
@@ -381,41 +310,191 @@ body {
     }
 }
 
-.message-user {
+.message.user {
     align-self: flex-end;
-    flex-direction: row-reverse;
 }
 
-.message-bot {
+.message.agent {
     align-self: flex-start;
 }
 
-.message-avatar {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
-}
-
-.message-bot .message-avatar {
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-}
-
-.message-user .message-avatar {
-    background: linear-gradient(135deg, var(--secondary), var(--success));
-}
-
 .message-content {
-    flex: 1;
-}
-
-.message-text {
-    padding: 14px 18px;
+    padding: 15px 20px;
     border-radius: 15px;
     line-height: 1.6;
-    font-size: 14px;
 }
+
+.message.user .message-content {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-bottom-right-radius: 5px;
+}
+
+.message.agent .message-content {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-bottom-left-radius: 5px;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+    text-align: right;
+}
+
+.message.tool-result {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.tool-badge {
+    display: inline-block;
+    background: var(--success);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    margin-bottom: 10px;
+}
+
+/* 输入区域 */
+.chat-input-area {
+    padding-top: 15px;
+    border-top: 1px solid var(--glass-border);
+}
+
+.input-wrapper {
+    display: flex;
+    gap: 10px;
+}
+
+.input-wrapper input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 25px;
+    padding: 15px 20px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.input-wrapper input::placeholder {
+    color: var(--text-muted);
+}
+
+.send-btn {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border: none;
+    border-radius: 25px;
+    padding: 15px 25px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.send-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px var(--primary-glow);
+}
+
+.send-btn:active {
+    transform: scale(0.98);
+}
+
+.send-icon {
+    font-size: 0.9rem;
+}
+
+/* 思考面板 */
+.thinking-panel {
+    max-height: 600px;
+}
+
+.thinking-panel h3 {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.thinking-content {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 0.9rem;
+    line-height: 1.8;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.thinking-idle {
+    color: var(--text-muted);
+    text-align: center;
+    padding: 20px;
+}
+
+.thinking-step {
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.thinking-step:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.thinking-label {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: 0.75rem;
+    margin-bottom: 8px;
+}
+
+.thinking-label.intent {
+    background: rgba(139, 92, 246, 0.3);
+    color: var(--secondary);
+}
+
+.thinking-label.tool {
+    background: rgba(34, 211, 238, 0.3);
+    color: var(--accent);
+}
+
+.thinking-label.result {
+    background: rgba(16, 185, 129, 0.3);
+    color: var(--success);
+}
+
+.thinking-label.response {
+    background: rgba(245, 158, 11, 0.3);
+    color: var(--warning);
+}
+
+.thinking-text {
+    color: var(--text-secondary);
+}
+
+/* 模态框 */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur
