@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent 工具箱 - LangChain Agent</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Background Effects -->
+        <div class="bg-gradient bg-gradient-1"></div>
+        <div class="bg-gradient bg-gradient-2"></div>
+        <div class="bg-gradient bg-gradient-3"></div>
+        
+        <!-- Header -->
+        <header class="header glass-card">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">🤖</div>
+                    <div class="logo-text">
+                        <h1>Agent 工具箱</h1>
+                        <p>LangChain Agent Demo</p>
+                    </div>
+                </div>
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">在线</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tools Panel -->
+        <section class="tools-panel glass-card">
+            <h2 class="panel-title">
+                <span class="icon">🧰</span>
+                可用工具
+            </h2>
+            <div class="tools-grid" id="toolsGrid">
+                <div class="tool-badge" data-tool="calculator">
+                    <span class="tool-icon">🔢</span>
+                    <span class="tool-name">计算器</span>
+                </div>
+                <div class="tool-badge" data-tool="search">
+                    <span class="tool-icon">🔍</span>
+                    <span class="tool-name">搜索</span>
+                </div>
+                <div class="tool-badge" data-tool="weather">
+                    <span class="tool-icon">🌤️</span>
+                    <span class="tool-name">天气</span>
+                </div>
+                <div class="tool-badge" data-tool="text">
+                    <span class="tool-icon">📝</span>
+                    <span class="tool-name">文本处理</span>
+                </div>
+                <div class="tool-badge" data-tool="time">
+                    <span class="tool-icon">⏰</span>
+                    <span class="tool-name">时间</span>
+                </div>
+                <div class="tool-badge" data-tool="convert">
+                    <span class="tool-icon">🔄</span>
+                    <span class="tool-name">单位转换</span>
+                </div>
+                <div class="tool-badge" data-tool="code">
+                    <span class="tool-icon">💻</span>
+                    <span class="tool-name">代码执行</span>
+                </div>
+                <div class="tool-badge" data-tool="wiki">
+                    <span class="tool-icon">📚</span>
+                    <span class="tool-name">知识百科</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Chat Area -->
+        <main class="chat-area glass-card">
+            <div class="chat-header">
+                <h2 class="panel-title">
+                    <span class="icon">💬</span>
+                    对话
+                </h2>
+                <button class="btn-clear" id="clearChat" title="清空对话">
+                    <span>🗑️</span>
+                </button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="message message-agent">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <div class="message-text">
+                            你好！我是 Agent 工具箱，一个基于 LangChain 风格的智能代理。
+                            <br><br>
+                            我可以帮你完成以下任务：
+                            <ul>
+                                <li>🔢 <strong>数学计算</strong> - 如: "计算 15 + 27 的结果"</li>
+                                <li>🔍 <strong>搜索信息</strong> - 如: "搜索 Python 教程"</li>
+                                <li>🌤️ <strong>天气查询</strong> - 如: "北京天气怎么样"</li>
+                                <li>📝 <strong>文本处理</strong> - 如: "反转文本: hello"</li>
+                                <li>⏰ <strong>时间查询</strong> - 如: "现在几点了"</li>
+                                <li>🔄 <strong>单位转换</strong> - 如: "转换 100 华氏度到摄氏度"</li>
+                                <li>💻 <strong>代码执行</strong> - 如: "执行 console.log('Hello')"</li>
+                            </ul>
+                            请告诉我你需要什么帮助！
+                        </div>
+                        <div class="message-time">系统</div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="userInput" 
+                        class="chat-input" 
+                        placeholder="输入你的问题..."
+                        autocomplete="off"
+                    >
+                    <button class="btn-send" id="sendBtn">
+                        <span>🚀</span>
+                        发送
+                    </button>
+                </div>
+                <div class="suggestions" id="suggestions">
+                    <span class="suggestion" data-query="计算 123 + 456">🔢 计算 123 + 456</span>
+                    <span class="suggestion" data-query="搜索 JavaScript 教程">🔍 搜索 JavaScript 教程</span>
+                    <span class="suggestion" data-query="北京天气怎么样">🌤️ 北京天气</span>
+                    <span class="suggestion" data-query="现在几点了">⏰ 现在时间</span>
+                </div>
+            </div>
+        </main>
+
+        <!-- Agent Thinking Panel -->
+        <aside class="thinking-panel glass-card" id="thinkingPanel">
+            <h2 class="panel-title">
+                <span class="icon">🧠</span>
+                Agent 思考过程
+            </h2>
+            <div class="thinking-content" id="thinkingContent">
+                <div class="thinking-step">
+                    <span class="step-icon">📥</span>
+                    <span class="step-text">等待用户输入...</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Tool Usage Log -->
+        <aside class="log-panel glass-card" id="logPanel">
+            <h2 class="panel-title">
+                <span class="icon">📋</span>
+                工具调用日志
+            </h2>
+            <div class="log-content" id="logContent">
+                <div class="log-entry log-system">
+                    <span class="log-icon">ℹ️</span>
+                    <span class="log-text">系统已就绪，等待交互...</span>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
